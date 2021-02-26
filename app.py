@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from joblib import load
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 app = Flask(__name__)
 
@@ -7,7 +8,7 @@ app = Flask(__name__)
 @app.route('/', methods=["GET"])
 def call_model():
     req = request.args
-    predict = clf.predict(req.get('action'))
+    predict = pipeline.predict([req.get('action')])
 
     result_dict = {
         "player": req.get('player'),
@@ -23,4 +24,4 @@ if __name__ == '__main__':
 
 
 # load the classifier model
-clf = load("randomfs.pkl")
+pipeline = load("text_classification.joblib")
