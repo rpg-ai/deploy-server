@@ -4,6 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from unidecode import unidecode
 import spacy
 import re
+import numpy as np
 
 app = Flask(__name__)
 
@@ -40,13 +41,21 @@ def clean_text(text):
 @app.route('/', methods=["GET"])
 def call_model():
     req = request.args
-    predict = pipeline.predict([nlp_preprocess(req.get('action'))])
+
+    lemmas = nlp_preprocess(req.get('action'))
+    predict = pipeline.predict([lemmas])
+    prob = pipeline.predict_proba([lemmas])
+
+    best_n = np.argsort(prob, axis=1)[:,-3:]
+    classes = pipeline.classes_
 
     result_dict = {
         "player": req.get('player'),
         "action": req.get('action'),
         "prediction": predict[0],#{"Acrobatics": "32.54%"},
-        "other_predicts": [{"Athletics": "12.9%"}, {"Survival": "2.41%"}]
+        "other_predicts": [{classes[best_n[0, 2]]: prob[0, best_n[0, 2]]}, 
+        {classes[best_n[0, 1]]: prob[0, best_n[0, 1]]}, 
+        {classes[best_n[0, 0]]: prob[0, best_n[0, 0]]}]
     }
     return jsonify(result_dict)
 
