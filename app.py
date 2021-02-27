@@ -16,7 +16,3 @@ def call_model():
         "predictions_list": predictions_list
     }
     return jsonify(result_dict)
-
-
-if __name__ == '__main__':
-    app.run()
