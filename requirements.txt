@@ -7,7 +7,7 @@ click
 cymem
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0-py3-none-any.whl
 Flask
-idna
+idna==2.10
 itsdangerous
 Jinja2
 joblib
@@ -17,13 +17,13 @@ numpy
 packaging
 pathy
 preshed
-pydantic
+pydantic==1.7.3
 pyparsing
 requests
 scikit-learn
 scipy
 sklearn
-smart-open
+smart-open==3.0.0
 spacy
 spacy-legacy
 srsly
