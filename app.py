@@ -1,6 +1,13 @@
 from flask import Flask, request, jsonify
 import pipeline as pipeline
+import os
+
 app = Flask(__name__)
+
+
+@app.route('/config/model')
+def download_model():
+    os.popen(f'wget {os.environ["MODEL_DOWNLOAD_URL"]}').read()
 
 
 @app.route('/predict', methods=["POST", "GET"])
