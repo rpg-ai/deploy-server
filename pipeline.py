@@ -4,11 +4,12 @@ import re
 from joblib import load
 import numpy as np
 import os
+import wget
 
 model_name = "text_classification.joblib"
-if model_name not in os.listdir('.'):
-    os.popen(f'wget "{os.environ["MODEL_DOWNLOAD_URL"]}"')
-model = load("text_classification.joblib")
+while model_name not in os.listdir('.'):
+    wget.download(os.environ["MODEL_DOWNLOAD_URL"])
+model = load(model_name)
 
 
 def nlp_preprocess(text):
