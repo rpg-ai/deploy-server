@@ -9,6 +9,8 @@ import wget
 model_name = "text_classification.joblib"
 while model_name not in os.listdir('.'):
     wget.download(os.environ["MODEL_DOWNLOAD_URL"])
+    print("To baixando")
+print(f"Saí do download, aqui ja deveria ter: {os.listdir('.')}")
 model = load(model_name)
 
 
