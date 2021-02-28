@@ -3,7 +3,9 @@ import spacy
 import re
 from joblib import load
 import numpy as np
+import os
 
+os.popen(f'wget {os.environ["MODEL_DOWNLOAD_URL"]}')
 model = load("text_classification.joblib")
 
 
