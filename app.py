@@ -11,7 +11,7 @@ def download_model():
 
 
 @app.route('/predict', methods=["POST", "GET"])
-def call_model():
+def predict():
     req = request.args
     print(req.get('action'))
     prediction, predictions_list = pipeline.predict(req.get('action'))
