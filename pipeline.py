@@ -54,8 +54,8 @@ def predict(message):
     classes = model.classes_
 
     prediction = predict[0]
-    predictions_list = [{classes[best_n[0, 2]]: f"{prob[0, best_n[0, 2]] * 100}%"},
-                        {classes[best_n[0, 1]]: f"{prob[0, best_n[0, 1]] * 100}%"},
-                        {classes[best_n[0, 0]]: f"{prob[0, best_n[0, 0]] * 100}%"}]
+    predictions_list = [{classes[best_n[0, 2]]: f"{round(prob[0, best_n[0, 2]] * 100, 2)}%"},
+                        {classes[best_n[0, 1]]: f"{round(prob[0, best_n[0, 1]] * 100, 2)}%"},
+                        {classes[best_n[0, 0]]: f"{round(prob[0, best_n[0, 0]] * 100, 2)}%"}]
 
     return prediction, predictions_list
