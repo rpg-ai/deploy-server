@@ -4,7 +4,7 @@ import re
 from joblib import load
 import numpy as np
 
-model = load("models/text_classification.joblib")
+model = load("text_classification.joblib")
 
 
 def nlp_preprocess(text):
