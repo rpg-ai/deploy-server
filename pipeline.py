@@ -9,10 +9,15 @@ import wget
 
 def load_model():
     model_name = "text_classification.joblib"
-    if model_name not in os.listdir('.'):
-        wget.download(os.environ["MODEL_DOWNLOAD_URL"])
-        print("To baixando")
-    print(f"Saí do download, aqui ja deveria ter: {os.listdir('.')}")
+    verification = model_name in os.listdir('.')
+    if not verification:
+        try:
+            wget.download(os.environ["MODEL_DOWNLOAD_URL"])
+            print("Fazendo o download")
+        finally:
+            print("Foi impossível executar o download")
+    else:
+        print("O arquivo está presente")
     return load(model_name)
 
 
