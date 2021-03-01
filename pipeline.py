@@ -21,9 +21,6 @@ def load_model():
     return load(model_name)
 
 
-model = load_model()
-
-
 def nlp_preprocess(text):
     lemmas = []
 
@@ -51,6 +48,7 @@ def clean_text(text):
 
 
 def predict(message):
+    model = load_model()
     lemmas = nlp_preprocess(message)
     predict = model.predict([lemmas])
     prob = model.predict_proba([lemmas])
@@ -62,5 +60,7 @@ def predict(message):
     predictions_list = [{classes[best_n[0, 2]]: f"{round(prob[0, best_n[0, 2]] * 100, 2)}%"},
                         {classes[best_n[0, 1]]: f"{round(prob[0, best_n[0, 1]] * 100, 2)}%"},
                         {classes[best_n[0, 0]]: f"{round(prob[0, best_n[0, 0]] * 100, 2)}%"}]
+
+    del model
 
     return prediction, predictions_list
