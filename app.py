@@ -13,7 +13,7 @@ with app.app_context():
     global path_dir_models
 
     nlp = NLP_Classifier()
-    path_dir_models = 'temp'
+    path_dir_models = 'models'
 
     filename = os.path.join(path_dir_models, 'model.sav')
     skill_model = pickle.load(open(filename, 'rb'))
