@@ -35,4 +35,4 @@ Unidecode
 urllib3
 wasabi
 Werkzeug
-wget
+flashtext
