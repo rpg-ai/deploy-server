@@ -3,6 +3,7 @@ import os
 from nlp_classfier import NLP_Classifier
 import pickle
 import numpy as np
+import time
 
 app = Flask(__name__)
 with app.app_context():
@@ -34,6 +35,7 @@ def home():
 
 @app.route('/predict', methods=["POST", "GET"])
 def predict():
+    initial_time = time.time()
     content = request.args
     action_list = []
     action = ''.join(content.get('action'))
@@ -42,7 +44,7 @@ def predict():
     print(action_list)
 
     bow_tfidf = nlp.use_TDIDF_Vec_model_in_memory(action_list, skill_tfidf)
-    pred_skills = skill_model.predict_proba(bow_tfidf)  #[:, 1]
+    pred_skills = skill_model.predict_proba(bow_tfidf)
 
     print(pred_skills)
 
@@ -53,10 +55,13 @@ def predict():
                         {classes[best_n[0, 1]]: f"{round(pred_skills[0, best_n[0, 1]] * 100, 2)}%"},
                         {classes[best_n[0, 0]]: f"{round(pred_skills[0, best_n[0, 0]] * 100, 2)}%"}]
 
+    final_time = time.time()
+
     result_dict = {
         "player": content.get('player'),
         "action": content.get('action'),
-        "predictions_list": predictions_list
+        "predictions_list": predictions_list,
+        "run_time": final_time - initial_time
     }
     return jsonify(result_dict)
 
